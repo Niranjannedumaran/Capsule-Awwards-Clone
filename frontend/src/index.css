@@ -17,6 +17,11 @@ body {
 	/* Chrome, Edge, Safari */
 	-ms-overflow-style: none;
 	/* IE & Edge */
+	overflow-x: hidden;
+}
+
+body {
+	width: 100%;
 }
 
 
@@ -158,6 +163,15 @@ body {
 		top: 33%;
 	}
 
+	.welcome-section {
+		padding-top: 5rem;
+		padding-bottom: 5rem;
+	}
+
+	.welcome-text {
+		font-size: 1.5rem !important;
+		line-height: 1.2 !important;
+	}
 }
 
 /* -------------- Choose Section Styles ----------------- */
@@ -211,6 +225,17 @@ body {
 		width: 50%;
 		height: 100%;
 		will-change: transform;
+	}
+
+	@media (max-width: 768px) {
+		.col {
+			position: relative;
+			width: 100%;
+			height: auto;
+			transform: none !important;
+			opacity: 1 !important;
+			scale: 1 !important;
+		}
 	}
 
 	.col h1 {
@@ -268,6 +293,15 @@ body {
 		overflow: hidden;
 	}
 
+	@media (max-width: 768px) {
+		.col-content-wrapper,
+		.col-img-wrapper {
+			border-radius: 2rem;
+			height: 400px;
+			margin-bottom: 1rem;
+		}
+	}
+
 	.col-content-wrapper-2 {
 		position: absolute;
 		top: 0;
@@ -304,6 +338,27 @@ body {
 	.line span {
 		display: block;
 		will-change: transform;
+	}
+
+	@media (max-width: 768px) {
+		padding: 1rem;
+		.sticky-cols-wrapper {
+			height: auto !important;
+			display: flex;
+			flex-direction: column;
+			gap: 2rem;
+		}
+		
+		.col-2, .col-3, .col-4 {
+			transform: none !important;
+			position: relative !important;
+			width: 100% !important;
+		}
+
+		.col-img-2 {
+			clip-path: none !important;
+			position: relative !important;
+		}
 	}
 }
 

@@ -83,11 +83,11 @@ const Activities = () => {
     });
 
     return (
-        <section className="activities-section w-full h-[120vh] p-8 mt-16">
+        <section className="activities-section w-full md:h-[120vh] h-auto p-4 md:p-8 mt-16 pb-20">
             <p className='text-[.7rem] font-bold text-[#eae5dd] activities-subtitle'>Ready for an advanture?</p>
-            <div className="lg:mt-10 mt-7 activities-part origin-bottom">
+            <div className="lg:mt-10 mt-7 activities-part origin-bottom h-auto">
                 {activitiesLines.map((line, index) => (
-                    <h1 key={index} className={`activities-heading text-[#f4efe7] lg:text-[9.5rem] text-[3rem] leading-[0.9]`} font-medium tracking-tighter>
+                    <h1 key={index} className={`activities-heading text-[#f4efe7] lg:text-[9.5rem] text-[2.5rem] leading-[1.1] md:leading-[0.9] font-medium tracking-tighter`}>
                         <span className={`activities-title-break ${index == 1 ? "lg:pb-3 pb-2" : ""}`}>
                             {line}
                             <span className={`activities-title-clip ${index == 1 ? "lg:pb-3 pb-2" : ""}`}>
@@ -132,7 +132,7 @@ const Activities = () => {
                         </div>
                     </div>
                 </div>
-                <div className='lg:w-1/2 w-full text-[#b1a696] lg:text-[2rem] text-[1rem] md:leading-[1.1] lg:mt-0 mt-8 lg:pr-0'>
+                <div className='lg:w-1/2 w-full text-[#b1a696] lg:text-[2rem] text-[1.2rem] leading-snug md:leading-[1.1] lg:mt-0 mt-8 lg:pr-0'>
                     <p>We want to make sure your stay is exciting and enjoyable. That’s why we offer a variety of activities with different levels of engagement. Whether you seek
                         thrills or tranquility, there’s something for everyone to make your desert stay truly memorable.</p>
                 </div>

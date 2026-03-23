@@ -60,19 +60,19 @@ const Choose = () => {
     });
 
     return (
-        <section className="choose-section w-full h-dvh p-8 pt-10">
+        <section className="choose-section w-full md:h-dvh h-auto p-4 md:p-8 pt-10 pb-20">
             <p className='text-[.7rem] text-[#eae5dd] choose-subtitle'>Discover Available Capsule<span>®</span></p>
-            <div className="lg:mt-10 mt-7 title-part origin-bottom ">
+            <div className="lg:mt-10 mt-7 title-part origin-bottom h-auto">
                 {
                     chooseLines.map((line, index) => (
-                        <h1 key={index} className={`choose-heading text-[#f4efe7] lg:text-[9.5rem] text-[3rem] leading-[0.9]`} font-medium tracking-tighter choose-title>
+                        <h1 key={index} className={`choose-heading text-[#f4efe7] lg:text-[9.5rem] text-[2.5rem] leading-[1.1] md:leading-[0.9] font-medium tracking-tighter choose-title`}>
                             <span className={`choose-title-break ${index == 1 ? "lg:pb-3 pb-2" : ""}`}>{line}<span className={`choose-title-clip ${index == 1 ? "lg:pb-3 pb-2" : ""}`}>{line}</span></span>
                         </h1>
                     ))
                 }
             </div>
             <div className="choose-sec w-full flex lg:flex-row flex-col justify-center items-start gap-10 lg:mt-0">
-                <div className='lg:w-1/2 w-full text-[#b1a696] lg:text-[2rem] text-[1rem] md:leading-[1.1] lg:mt-0 mt-8 lg:pr-16'>
+                <div className='lg:w-1/2 w-full text-[#b1a696] lg:text-[2rem] text-[1.2rem] leading-snug md:leading-[1.1] lg:mt-0 mt-8 lg:pr-16'>
                     <p>You can choose one of three premium capsule houses in our offer. Each of our capsules provides the highest quality and meets the standards adjusted to your needs. Choose the one you like.</p>
                 </div>
                 <div className='lg:w-1/2 w-full'>

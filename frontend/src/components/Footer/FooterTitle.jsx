@@ -69,15 +69,15 @@ const FooterTitle = () => {
     }, { scope: ftConRef });
 
     return (
-        <section ref={ftConRef} className='relative z-1 w-screen h-[40vh] border-1 border-t-[#c4c1b9]'>
-            <div className='w-full flex justify-between items-center px-6 mt-8'>
-                <p className='text-[#b1a696] text-[0.7rem]'>
+        <section ref={ftConRef} className='relative z-1 w-screen md:h-[40vh] h-auto border-1 border-t-[#c4c1b9] pb-10'>
+            <div className='w-full flex md:flex-row flex-col justify-between items-center md:items-center px-6 mt-8 gap-2 md:gap-0'>
+                <p className='text-[#b1a696] text-[0.7rem] text-center md:text-left'>
                     Website made by—<a href="#" className='text-[#f2ede5]'>Moyra.co</a>
                 </p>
-                <p className='text-[#b1a696] text-[0.7rem]'>
+                <p className='text-[#b1a696] text-[0.7rem] text-center md:text-left'>
                     This website is using <a href="#" className='text-[#f2ede5]'>cookies</a>
                 </p>
-                <p className='text-[#b1a696] text-[0.7rem]'>
+                <p className='text-[#b1a696] text-[0.7rem] text-center md:text-left'>
                     All rights reserved © <a href="#" className='text-[#f2ede5]'>2025</a>
                 </p>
             </div>

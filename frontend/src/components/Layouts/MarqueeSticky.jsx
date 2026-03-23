@@ -32,7 +32,7 @@ const MarqueeSticky = () => {
 
     return (
         <section className=" w-full overflow-hidden">
-            <div className="pin-con relative">
+            <div className="pin-con relative py-10 md:py-0">
                 <div className="pl-8">
                     <p className="text-[0.7rem] text-[#eae5dd] choose-subtitle">
                         Want to learn more about
@@ -41,7 +41,7 @@ const MarqueeSticky = () => {
                     </p>
                 </div>
 
-                <div className="marquee-con-none absolute top-0 -z-1">
+                <div className="marquee-con-none md:absolute relative top-0 -z-1">
                     <MarqueeText />
                 </div>
 

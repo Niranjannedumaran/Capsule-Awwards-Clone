@@ -12,64 +12,82 @@ const StickyCols = () => {
     useGSAP(() => {
         gsap.registerPlugin(ScrollTrigger, SplitText);
 
-        // 1️⃣ Split text lines once DOM ready
-        const textElements = document.querySelectorAll(".col-3 h1, .col-3 p");
-        textElements.forEach((element) => {
-            const split = new SplitText(element, { type: "lines", linesClass: "line" });
-            split.lines.forEach((line) => {
-                line.innerHTML = `<span>${line.textContent}</span>`;
+        let mm = gsap.matchMedia();
+
+        mm.add("(min-width: 769px)", () => {
+            // 1️⃣ Split text lines once DOM ready
+            const textElements = document.querySelectorAll(".col-3 h1, .col-3 p");
+            textElements.forEach((element) => {
+                const split = new SplitText(element, { type: "lines", linesClass: "line" });
+                split.lines.forEach((line) => {
+                    line.innerHTML = `<span>${line.textContent}</span>`;
+                });
             });
+
+            // Refresh ScrollTrigger after split
+            ScrollTrigger.refresh();
+
+            // 2️⃣ Initial state
+            gsap.set(".col-3 .col-content-wrapper .line span", { yPercent: 0 });
+            gsap.set(".col-3 .col-content-wrapper-2 .line span", { yPercent: -125 });
+
+            // 3️⃣ Controlled phase logic using timeline (simpler and stable)
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: ".sticky-cols",
+                    start: "top 20%",
+                    end: "+=90%",
+                    pin: true,
+                    scrub: 1,
+                    // markers: true,
+                },
+            });
+            tl.add(() => setReveal(false));
+            // PHASE 1: Reveal col-2, hide col-1
+            tl.to(".col-1", { opacity: 0, scale: 0.8, duration: 0.8 })
+                .to(".col-2", { x: "0%", duration: 0.8 }, "<")
+                .to(".col-3", { y: "0%", duration: 0.8 }, "<")
+                .to(".col-img-1 img", { scale: 1, duration: 0.8 }, "<")
+                .to(".col-img-2", {
+                    clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+                    duration: 0.8,
+                }, "<")
+                .to(".col-img-2 img", { scale: 1.6, duration: 0.8 }, "<")
+
+            tl.add(() => setReveal(false));
+            tl.add(() => setReveal(true));
+            // PHASE 2: Switch col-2 -> col-3 content
+            tl.to(".col-2", { opacity: 0, scale: 0.8, duration: 0.8 })
+                .to(".col-3 .col-content-wrapper .line span", {
+                    yPercent: -125,
+                    duration: 0.8,
+                }, "<")
+            tl.to(".col-3", { x: "0%", duration: 0.8 }, "-=0.8")
+                .to(".col-4", { y: "0%", duration: 0.8 }, "<")
+                .to(".col-3 .col-content-wrapper-2 .line span", {
+                    yPercent: 0,
+                    delay: 0.4,
+                    duration: 0.8,
+                }, "<");
+
+            return () => {
+                tl.kill();
+            };
         });
 
-        // Refresh ScrollTrigger after split
-        ScrollTrigger.refresh();
-
-        // 2️⃣ Initial state
-        gsap.set(".col-3 .col-content-wrapper .line span", { yPercent: 0 });
-        gsap.set(".col-3 .col-content-wrapper-2 .line span", { yPercent: -125 });
-
-        // 3️⃣ Controlled phase logic using timeline (simpler and stable)
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: ".sticky-cols",
-                start: "top 20%",
-                end: "+=90%",
-                pin: true,
-                scrub: 1,
-                // markers: true,
-            },
+        mm.add("(max-width: 768px)", () => {
+            // Mobile: Simple fade-in animations instead of pinning
+            gsap.set(".col", { opacity: 0, y: 50 });
+            ScrollTrigger.batch(".col", {
+                onEnter: batch => gsap.to(batch, { opacity: 1, y: 0, stagger: 0.15, overwrite: true }),
+                start: "top 90%"
+            });
+            setReveal(true); // Always reveal content on mobile
         });
-        tl.add(() => setReveal(false));
-        // PHASE 1: Reveal col-2, hide col-1
-        tl.to(".col-1", { opacity: 0, scale: 0.8, duration: 0.8 })
-            .to(".col-2", { x: "0%", duration: 0.8 }, "<")
-            .to(".col-3", { y: "0%", duration: 0.8 }, "<")
-            .to(".col-img-1 img", { scale: 1, duration: 0.8 }, "<")
-            .to(".col-img-2", {
-                clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-                duration: 0.8,
-            }, "<")
-            .to(".col-img-2 img", { scale: 1.6, duration: 0.8 }, "<")
-
-        tl.add(() => setReveal(false));
-        tl.add(() => setReveal(true));
-        // PHASE 2: Switch col-2 -> col-3 content
-        tl.to(".col-2", { opacity: 0, scale: 0.8, duration: 0.8 })
-            .to(".col-3 .col-content-wrapper .line span", {
-                yPercent: -125,
-                duration: 0.8,
-            }, "<")
-        tl.to(".col-3", { x: "0%", duration: 0.8 }, "-=0.8")
-            .to(".col-4", { y: "0%", duration: 0.8 }, "<")
-            .to(".col-3 .col-content-wrapper-2 .line span", {
-                yPercent: 0,
-                delay: 0.4,
-                duration: 0.8,
-            }, "<");
 
         return () => {
+            mm.revert();
             ScrollTrigger.getAll().forEach((st) => st.kill());
-            tl.kill();
         };
     });
 

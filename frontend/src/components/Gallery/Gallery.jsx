@@ -16,82 +16,106 @@ const Gallery = () => {
     const pageRef = useRef(null);
 
     useEffect(() => {
+        let mm = gsap.matchMedia();
 
-        // document.fonts.ready.then(() => {
-        // Create new timeline
-        const tl4 = gsap.timeline({
-            scrollTrigger: {
-                trigger: ".gallery-page4",
-                start: "10% 10%",
-                end: "220% 30%",
-                scrub: 1,
-                pin: true,
-            }
+        mm.add("(min-width: 769px)", () => {
+            // Create new timeline
+            const tl4 = gsap.timeline({
+                scrollTrigger: {
+                    trigger: ".gallery-page4",
+                    start: "10% 10%",
+                    end: "220% 30%",
+                    scrub: 1,
+                    pin: true,
+                }
+            });
+
+            // Add background color animation
+            tl4.to(".gallery-page4", {
+                backgroundColor: "#181717",
+            }, 'start');
+
+            gsap.set(".gallery-topText h4, .gallery-topText h3, .gallery-bottomText h3", {
+                opacity: 1,
+                x: 0
+            });
+
+            // Animation sequence
+            tl4.to(".gallery-box h3", {
+                opacity: 0,
+            }, 'a')
+                .to(".gallery-page4 .gallery-background", {
+                    width: "calc(100vw - 1rem)",
+                    height: "calc(100vh - 1rem)",
+                    borderRadius: "3.5rem",
+                    y: -40,
+                }, 'a')
+                .to(".gallery-page4 .gallery-background img", {
+                    transform: "scale(1)",
+                }, 'a')
+                .from(".gallery-background .gallery-topText h4, .gallery-background .gallery-topText h3, .gallery-background .gallery-bottomText h3", {
+                    opacity: 0,
+                    x: 50,
+                })
+                .to({}, { duration: 0.4 }, "+=0")
+
+                .to("#gallery-second", {
+                    transform: "translate(-50%, -56%)",
+                }, 'b')
+                .to("#gallery-second img", {
+                    transform: "scale(1)",
+                }, 'b')
+                .to(".gallery-page4 .gallery-background", {
+                    scale: 0.9,
+                    opacity: 0,
+                    y: -50
+                }, 'b')
+                .from("#gallery-second .gallery-topText h4, #gallery-second .gallery-topText h3, #gallery-second .gallery-bottomText h3", {
+                    opacity: 0,
+                    x: 50,
+                })
+                .to({}, { duration: 0.4 }, "+=0")
+                .to("#gallery-third", {
+                    transform: "translate(-50%, -56%)",
+                }, 'c')
+                .to("#gallery-third img", {
+                    transform: "scale(1)",
+                }, 'c')
+                .to("#gallery-second", {
+                    scale: 0.9,
+                    opacity: 0,
+                }, 'c')
+                .from("#gallery-third .gallery-topText h4, #gallery-third .gallery-topText h3, #gallery-third .gallery-bottomText h3", {
+                    opacity: 0,
+                    x: 50,
+                })
+                .to({}, { duration: 0.4 }, "+=0");
+
+            return () => {
+                tl4.kill();
+            };
         });
 
-        // Add background color animation
-        tl4.to(".gallery-page4", {
-            backgroundColor: "#181717",
-        }, 'start');
-
-        gsap.set(".gallery-topText h4, .gallery-topText h3, .gallery-bottomText h3", {
-            opacity: 1,
-            x: 0
+        mm.add("(max-width: 768px)", () => {
+            // Mobile: Simple scroll reveal instead of pinning
+            gsap.utils.toArray(".gallery-background, .gallery-background2").forEach((section) => {
+                gsap.from(section, {
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top 80%",
+                        end: "top 20%",
+                        scrub: true,
+                    },
+                    opacity: 0,
+                    y: 50,
+                    scale: 0.95
+                });
+            });
         });
-
-        // Animation sequence
-        tl4.to(".gallery-box h3", {
-            opacity: 0,
-        }, 'a')
-            .to(".gallery-page4 .gallery-background", {
-                width: "calc(100vw - 1rem)",
-                height: "calc(100vh - 1rem)",
-                borderRadius: "3.5rem",
-                y: -40,
-            }, 'a')
-            .to(".gallery-page4 .gallery-background img", {
-                transform: "scale(1)",
-            }, 'a')
-            .from(".gallery-background .gallery-topText h4, .gallery-background .gallery-topText h3, .gallery-background .gallery-bottomText h3", {
-                opacity: 0,
-                x: 50,
-            })
-            .to({}, { duration: 0.4 }, "+=0")
-
-            .to("#gallery-second", {
-                transform: "translate(-50%, -56%)",
-            }, 'b')
-            .to("#gallery-second img", {
-                transform: "scale(1)",
-            }, 'b')
-            .to(".gallery-page4 .gallery-background", {
-                scale: 0.9,
-                opacity: 0,
-                y: -50
-            }, 'b')
-            .from("#gallery-second .gallery-topText h4, #gallery-second .gallery-topText h3, #gallery-second .gallery-bottomText h3", {
-                opacity: 0,
-                x: 50,
-            })
-            .to({}, { duration: 0.4 }, "+=0")
-            .to("#gallery-third", {
-                transform: "translate(-50%, -56%)",
-            }, 'c')
-            .to("#gallery-third img", {
-                transform: "scale(1)",
-            }, 'c')
-            .to("#gallery-second", {
-                scale: 0.9,
-                opacity: 0,
-            }, 'c')
-            .from("#gallery-third .gallery-topText h4, #gallery-third .gallery-topText h3, #gallery-third .gallery-bottomText h3", {
-                opacity: 0,
-                x: 50,
-            })
-            .to({}, { duration: 0.4 }, "+=0");
 
         // Clean up function
         return () => {
+            mm.revert();
             ScrollTrigger.getAll().forEach(trigger => trigger.kill());
         };
     }, []);

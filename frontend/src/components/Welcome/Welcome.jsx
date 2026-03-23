@@ -22,24 +22,22 @@ const Welcome = () => {
             },
         });
 
-        lines.forEach((line) => {
-            tl.to(line, {
-                clipPath: "inset(0% 0% 0% 0%)",
-                ease: "none",
-                stagger: 0.2,
-                duration: 1,
-            });
+        tl.to(lines, {
+            clipPath: "inset(0% 0% 0% 0%)",
+            ease: "none",
+            stagger: 0.2,
+            duration: 1,
         });
 
     });
 
     return (
-        <div className='welcome-section w-full h-[120vh] text-[#2A2725]  md:px-7 px-6 '>
-            <div className='flex flex-col gap-2 tracking-[-4] leading-2'>
-                <div className="w-full md:w-[86%] md:text-[64px] text-[34px] welcome-line md:pt-20">
-                    <div className="w-full welcome-text flex flex-col justify-center items-start">
+        <div className='welcome-section w-full md:h-[120vh] h-auto text-[#2A2725] md:px-7 px-6 py-20 md:py-0'>
+            <div className='flex flex-col gap-2'>
+                <div className="w-full md:w-[86%] md:text-[64px] text-[28px] welcome-line md:pt-20">
+                    <div className="w-full welcome-text flex flex-col justify-center items-start md:leading-[1.1] leading-[1.2]">
                         {welcomeLines.map((text, index) => (
-                            <span key={index} className="relative block text-darkBrown md:tracking-[-0.010em] tracking-[0.015em]">
+                            <span key={index} className="relative block text-[#b1a696] md:text-darkBrown md:tracking-[-0.010em] tracking-[0.015em]">
                                 {text}
                                 <span className="clip-text-welcome md:tracking-[-0.010em] tracking-[0.015em]">{text}</span>
                             </span>

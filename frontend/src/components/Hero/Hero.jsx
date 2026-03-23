@@ -30,7 +30,7 @@ const Hero = () => {
     }, [isMobHero]);
 
     return (
-        <section className="hero-section w-dvw md:h-dvh h-[100vh] md:p-2 p-2.5 mb-20">
+        <section className="hero-section w-dvw md:h-dvh min-h-screen md:p-2 p-2.5 mb-20 md:mb-20">
             <div className="relative w-full h-full rounded-[2.5rem] overflow-hidden">
                 <div className="responsive-mobile">
                     {/* Background image (down layer) */}
@@ -58,15 +58,15 @@ const Hero = () => {
                 <div className="p-4 flex flex-col md:justify-center">
                     <div className="relative h-dvh">
                         <h1
-                            className="text-[#f4efe7] text-start text-6xl md:text-9xl font-bold tracking-wider lg:absolute  lg:left-2"
+                            className="text-[#f4efe7] text-start text-5xl md:text-9xl font-bold tracking-wider lg:absolute lg:left-2"
                             style={{ textShadow: '2px 2px 4px #aaa' }}
                         >
                             Capsules®
                         </h1>
 
-                        <div className="w-full h-auto absolute  top-24 md:bottom-[8%] lg:bottom-[9%] flex md:flex-row flex-col md:justify-between md:items-end">
+                        <div className="w-full h-auto absolute top-48 md:bottom-[8%] lg:bottom-[9%] flex md:flex-row flex-col md:justify-between md:items-end gap-10">
                             <h2
-                                className="text-start lg:mt-0 md:text-[#f4efe7] text-[#b1a696] text-2xl font-bold md:tracking-wider leading-5 flex flex-col gap-1"
+                                className="text-start lg:mt-0 md:text-[#f4efe7] text-[#b1a696] text-3xl md:text-6xl font-bold md:tracking-wider leading-tight flex flex-col gap-1"
                                 style={{ textShadow: '2px 2px 4px #000' }}
                             >
                                 <span>Closer to</span>
@@ -75,7 +75,7 @@ const Hero = () => {
                             </h2>
 
                             <p
-                                className="md:w-[20%] w-[80%] text-[#f4efe7] text-[0.7rem] font-bold  md:font-medium tracking-wide lg:text-end mt-2 text-justify"
+                                className="md:w-[20%] w-full text-[#f4efe7] text-[0.8rem] md:text-[0.7rem] font-bold md:font-medium tracking-wide lg:text-end mt-2 text-justify md:pr-4"
                                 style={{ textShadow: '2px 2px 4px #000' }}
                             >
                                 Spend unforgettable and remarkable time in the Californian desert with—Capsules.
